@@ -5,8 +5,8 @@ import styled from 'styled-components';
 const AddtoCartBtn = styled.button`
   font-size: 18px;
   font-weight: 500;
+  padding: 16px 50px;
   color: ${({ disabled }) => disabled ? '#ccc' : '#E73C17'}; // Gray if disabled, orange if enabled
-  padding: ${({ disabled }) => disabled ? '16px 40px' : '16px 50px;'}; // Different padding if disabled
   border: 1px solid ${({ disabled }) => disabled ? '#ccc' : '#E73C17'}; // Different border color if disabled
   background-color: #fff;
   cursor: ${({ disabled }) => disabled ? 'not-allowed' : 'pointer'}; // Different cursor if disabled
@@ -20,6 +20,21 @@ const AddtoCartBtn = styled.button`
     color: #fff;
     background-color: #E73C17;
   }
+
+  @media (max-width: 1200px) {
+    font-size: 17px;
+    padding: 13px 47px;
+  }
+
+  @media (max-width: 767px) {
+    font-size: 14px;
+    padding: 10px 38px;
+  }
+
+  @media (max-width: 428px) {
+    padding: 6px 27px;
+    font-size: 12px;
+}
 `;
 
 // Main component
