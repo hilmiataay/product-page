@@ -66,6 +66,10 @@ const CartListContainer = styled.div`
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
   z-index: 1000;
+
+  @media (max-width: 428px) {
+    width: 250px;
+  }
 `;
 
 // Styled component for cart item
@@ -84,9 +88,13 @@ const CartItem = styled.a`
 
 // Styled component for cart item image
 const CartItemImage = styled.img`
-  width: 60px;
+  width: 80px;
   height: auto;
   margin-right: 10px;
+
+  @media (max-width: 428px) {
+    width: 65px;
+  }
 `;
 
 // Styled component for cart item details
@@ -97,7 +105,7 @@ const CartItemDetails = styled.div`
 
 // Styled component for cart item title
 const CartItemTitle = styled.div`
-  font-size: 14px;
+  font-size: 16px;
   font-weight: bold;
 
   @media (max-width: 428px) {
@@ -107,8 +115,12 @@ const CartItemTitle = styled.div`
 
 // Styled component for cart item price
 const CartItemPrice = styled.div`
-  font-size: 12px;
+  font-size: 15px;
   color: #888;
+
+  @media (max-width: 428px) {
+    font-size: 11px;
+  }
 `;
 
 // Styled component for buy now button container

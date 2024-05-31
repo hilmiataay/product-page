@@ -12,7 +12,6 @@ const QuantitySelector = styled.div`
   width: 180px;
   height: 60px;
 
-  /* Responsive styles */
   @media (max-width: 1200px) {
     width: 165px;
     height: 55px;
@@ -39,12 +38,10 @@ const QuantityButton = styled.div`
   cursor: pointer;
   border-right: 1px solid hsla(0, 0%, 94%, 1); // Add right border
 
-  /* Hover effect */
   &:hover {
     background-color: rgba(241, 241, 241, 1);
   }
 
-  /* Responsive styles */
   @media (max-width: 1200px) {
     font-size: 17px;
   }
@@ -71,7 +68,6 @@ const QuantityDisplay = styled.div`
   font-size: 32px;
   border-right: 1px solid hsla(0, 0%, 94%, 1); // Add right border
 
-  /* Responsive styles */
   @media (max-width: 1200px) {
     font-size: 28px;
   }
@@ -89,34 +85,33 @@ const QuantityDisplay = styled.div`
   }
 `;
 
-export default function QuantityCounter() {
-  const [quantity, setQuantity] = useState(1);
+export default function QuantityCounter({ setQuantity }) {
+  // Local state for quantity
+  const [quantity, setLocalQuantity] = useState(1);
 
   // Decrease quantity
   const decreaseQuantity = () => {
     if (quantity > 1) {
-      setQuantity(quantity - 1);
+      setLocalQuantity(quantity - 1); // Update local state
+      setQuantity(quantity - 1); // Update parent state
     }
   };
 
   // Increase quantity
   const increaseQuantity = () => {
-    setQuantity(quantity + 1);
+    setLocalQuantity(quantity + 1); // Update local state
+    setQuantity(quantity + 1); // Update parent state
   };
 
+  // Render the quantity counter component
   return (
     <QuantitySelector>
-      {/* Button to decrease quantity */}
       <QuantityButton onClick={decreaseQuantity}>
         <FaMinus />
       </QuantityButton>
-
-      {/* Quantity display */}
       <QuantityDisplay>
         {quantity}
       </QuantityDisplay>
-
-      {/* Button to increase quantity */}
       <QuantityButton onClick={increaseQuantity}>
         <FaPlus />
       </QuantityButton>

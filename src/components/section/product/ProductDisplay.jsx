@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import ProductMainImage from './product-images/ProductMainImage';
 import ProductThumbnails from './product-images/ProductThumbnails';
@@ -8,18 +8,16 @@ import ProductPrice from './product-actions/ProductPrice';
 import QuantityCounter from './product-actions/QuantityCounter';
 import BuyNowButton from './product-actions/BuyNowButton';
 import AddToCartButton from './product-actions/AddToCartButton';
-import productData from '../../../productData.json';
 
-// Styled component for the main product container
+// Styled components
 const ProductMainDiv = styled.div`
   display: flex;
 
   @media (max-width: 1024px) {
-    display: grid; // Change to grid layout on smaller screens
+    display: grid;
   }
 `;
 
-// Styled component for the product description main container
 const ProductDescriptionMain = styled.div`
   width: 50%;
   padding: 60px 90px 0px 40px;
@@ -42,7 +40,6 @@ const ProductDescriptionMain = styled.div`
   }
 `;
 
-// Styled component for the outer div containing main image and thumbnails
 const OuterDiv = styled.div`
   width: 50%;
   overflow: hidden;
@@ -58,21 +55,20 @@ const OuterDiv = styled.div`
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: auto auto;
-    flex-direction: column;
+    flex-direction
+    column;
     grid-template-areas:
       "mainImage"
       "thumbnails";
   }
 `;
 
-// Styled component for the thumbnails container
 const ThumbnailsDiv = styled.div`
   @media (max-width: 767px) {
     grid-area: thumbnails;
   }
 `;
 
-// Styled component for the main image container
 const MainImageDiv = styled.div`
   @media (max-width: 767px) {
     grid-area: mainImage;
@@ -81,7 +77,6 @@ const MainImageDiv = styled.div`
   }
 `;
 
-// Styled component for horizontal line
 const StyledHr = styled.hr`
   border: 0;
   height: 1px;
@@ -93,7 +88,6 @@ const StyledHr = styled.hr`
   }
 `;
 
-// Styled component for horizontal line (Mobile)
 const StyledHrMobile = styled.hr`
   border: 0;
   height: 1px;
@@ -102,18 +96,16 @@ const StyledHrMobile = styled.hr`
   display: none;
 
   @media (max-width: 428px) {
-    display: block; // Show the horizontal line on mobile
+    display: block
   }
 `;
 
-// Styled component for product price and counter container
 const ProductPriceAndCounter = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
 `;
 
-// Styled component for buttons container
 const Buttons = styled.div`
   display: flex;
   justify-content: space-between;
@@ -125,14 +117,29 @@ const Buttons = styled.div`
   }
 `;
 
-export default function ProductDisplay() {
-  const [mainImage, setMainImage] = useState(productData[0].img1);
-  const [activeThumbnail, setActiveThumbnail] = useState(productData[0].img1);
+// Main component
+export default function ProductDisplay({ selectedProduct, toggleCart }) {
+  const [mainImage, setMainImage] = useState(selectedProduct ? selectedProduct.img1 : '');
+  const [activeThumbnail, setActiveThumbnail] = useState(selectedProduct ? selectedProduct.img1 : '');
+  const [quantity, setQuantity] = useState(1);
 
-  // Function to handle thumbnail click
+  useEffect(() => {
+    if (selectedProduct) {
+      setMainImage(selectedProduct.img1);
+      setActiveThumbnail(selectedProduct.img1);
+    }
+  }, [selectedProduct]);
+
+  // Handler for thumbnail click
   const handleThumbnailClick = (image) => {
     setMainImage(image);
     setActiveThumbnail(image);
+  };
+
+  // Handler for adding item to cart
+  const handleAddToCart = (quantity) => {
+    toggleCart(selectedProduct.id);
+    console.log(`Added ${quantity} items to cart.`);
   };
 
   return (
@@ -142,6 +149,7 @@ export default function ProductDisplay() {
           <ProductThumbnails 
             activeThumbnail={activeThumbnail} 
             onThumbnailClick={handleThumbnailClick} 
+            product={selectedProduct} 
           />
         </ThumbnailsDiv>
         <MainImageDiv>
@@ -150,19 +158,20 @@ export default function ProductDisplay() {
       </OuterDiv>
       <ProductDescriptionMain>
         <ProductDescription />
-        <StyledHr /> {/* Horizontal line */}
+        <StyledHr />
         <ProductSize />
-        <StyledHr /> {/* Horizontal line */}
+        <StyledHr />
         <div>
           <ProductPriceAndCounter>
             <ProductPrice />
-            <QuantityCounter />
+            <QuantityCounter setQuantity={setQuantity} />
           </ProductPriceAndCounter>
           <Buttons>
             <BuyNowButton />
-            <AddToCartButton />
+            {/* Add to Cart button with quantity and onClick handler */}
+            <AddToCartButton onClick={handleAddToCart} quantity={quantity} />
           </Buttons>
-          <StyledHrMobile /> {/* Horizontal line for mobile */}
+          <StyledHrMobile />
         </div>
       </ProductDescriptionMain>
     </ProductMainDiv>

@@ -29,7 +29,7 @@ const StyledNav = styled.div`
     cursor: pointer; // Pointer cursor
 
     &:hover {
-      color: rgb(191 38 5); // Change color on hover
+      color: #E73C17; // Change color on hover
     }
   }
 `;
@@ -37,6 +37,11 @@ const StyledNav = styled.div`
 // Styled component for the arrow icons
 const StyledArrowIcon = styled(IoIosArrowDown)`
   font-size: 20px; // Icon size
+`;
+
+// Styled component for the arrow icons
+const ActiveNavItem = styled.span`
+  color: #E73C17;
 `;
 
 export default function NavItems() {
@@ -52,10 +57,10 @@ export default function NavItems() {
           <span>About </span>
           <StyledArrowIcon />
         </li>
-        <li>
+        <ActiveNavItem>
           <span>Product </span>
           <StyledArrowIcon />
-        </li>
+        </ActiveNavItem>
         <li>
           <span>Pages </span>
           <StyledArrowIcon />

@@ -1,47 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
-// Styled component for the "Add to Cart" button
+// Styled button component
 const AddtoCartBtn = styled.button`
   font-size: 18px;
   font-weight: 500;
-  color: #E73C17;
-  border: 1px solid #E73C17;
+  color: ${({ disabled }) => disabled ? '#ccc' : '#E73C17'}; // Gray if disabled, orange if enabled
+  padding: ${({ disabled }) => disabled ? '16px 40px' : '16px 50px;'}; // Different padding if disabled
+  border: 1px solid ${({ disabled }) => disabled ? '#ccc' : '#E73C17'}; // Different border color if disabled
   background-color: #fff;
-  padding: 16px 50px;
+  cursor: ${({ disabled }) => disabled ? 'not-allowed' : 'pointer'}; // Different cursor if disabled
 
   &:hover {
-    transition: 1s;
-    background-color: #F4F5F8;
+    background-color: ${({ disabled }) => disabled ? '#fff' : '#F4F5F8'}; // Background color doesn't change if disabled
   }
 
   &:focus {
     outline: none;
     color: #fff;
-    transition: 1s;
     background-color: #E73C17;
-  }
-
-  @media (max-width: 1200px) {
-    font-size: 17px;
-    padding: 13px 47px;
-  }
-
-  @media (max-width: 767px) {
-    font-size: 14px;
-    padding: 10px 38px;
-  }
-
-  @media (max-width: 428px) {
-    padding: 6px 30px;
-    font-size: 12px;
   }
 `;
 
-export default function AddToCartButton() {
+// Main component
+export default function AddToCartButton({ onClick, quantity }) {
+  const [addedToCart, setAddedToCart] = useState(false); // Whether the item is added to cart
+
+  // When the button is clicked
+  const handleClick = () => {
+    // If there is stock and it's not already added
+    if (quantity > 0 && !addedToCart) {
+      onClick(quantity); // Pass the quantity added to cart through onClick
+      setAddedToCart(true); // Update the added to cart state
+    }
+  };
+
   return (
-    <div>
-      <AddtoCartBtn>Add to Cart</AddtoCartBtn>
-    </div>
+    <AddtoCartBtn onClick={handleClick} disabled={quantity === 0 || addedToCart}>
+      {/* If added to cart, display 'Added to Cart', if out of stock, display 'Out of Stock', otherwise 'Add to Cart' */}
+      {addedToCart ? 'Added to Cart' : (quantity === 0 ? 'Out of Stock' : 'Add to Cart')}
+    </AddtoCartBtn>
   );
 }
