@@ -40,8 +40,8 @@ This project offers a basic template for an e-commerce website. Users can view p
 
 ### Desktop Preview
 
-<img width="360" alt="desktop" src="https://github.com/hilmiataay/landing-page/assets/91831803/ac3bf1d3-b589-406f-bd2e-1fb954a43882">
+<img width="360" alt="desktop" src="https://github.com/hilmiataay/product-page/assets/91831803/39ec7ad9-5d80-4b74-b950-cc4739b460aa">
 
 ### Mobile Preview
 
-<img width="170" alt="mobile" src="https://github.com/hilmiataay/landing-page/assets/91831803/12bcaf1e-eef6-4575-80bc-14ef8a26a5c8">
+<img width="170" alt="mobile" src="https://github.com/hilmiataay/product-page/assets/91831803/f70f5442-2cfa-41c9-adc5-4b0d17069b58">
